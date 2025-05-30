@@ -47,3 +47,10 @@ def telemetry_view(request):
             return JsonResponse({"status": "created"},  status=status.HTTP_201_CREATED)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def receive_alarm(request):
+    data = request.data
+    # Save to DB or trigger actions
+    print("Alarm received:", data)
+    return Response({"status": "alert", "data":data})
