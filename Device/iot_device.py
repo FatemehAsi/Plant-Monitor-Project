@@ -12,9 +12,9 @@ client.connect(THINGSBOARD_HOST, 1883, 60)
 client.loop_start()
 
 while True:
-    temp = round(random.uniform(20, 30), 2)
+    temp = round(random.uniform(0, 50), 2)
     humidity = round(random.uniform(40, 60), 2)
-    moisture = round(random.uniform(300, 700), 2)
+    moisture = round(random.uniform(250, 470), 2)
 
     payload = {
         "plant_id": random.randint(1,3),
