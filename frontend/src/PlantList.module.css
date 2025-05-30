@@ -53,13 +53,41 @@
 }
 
 .plantCard {
+  position: relative; /* ✅ needed for footer positioning */
   background-color: white;
   padding: 1rem;
+  padding-bottom: 2.5rem; /* ✅ leave space for footer */
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  overflow: hidden; /* optional, prevents overflow glitches */
 }
 
 .plantCard:hover {
   transform: translateY(-5px);
+}
+
+.cardFooter {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+
+/* Colored values */
+.temp {
+  color: #ff6b6b; /* red */
+  font-weight: bold;
+}
+
+.moist {
+  color: #1e90ff; /* blue */
+  font-weight: bold;
+}
+
+.humidity {
+  color: #28a745; /* green */
+  font-weight: bold;
 }
