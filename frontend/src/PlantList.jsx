@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PlantList.module.css";
-import { fetchPlants } from "./api";
+import { fetchPlants, fetchPlantHealth } from "./api";
 
 export default function PlantList() {
   const [plants, setPlants] = useState([]);
+  const [plantsHealth, setPlantsHealth] = useState([]);
 
   useEffect(() => {
     const getPlants = async () => {
@@ -17,6 +18,19 @@ export default function PlantList() {
 
     getPlants();
   }, []);
+
+  useEffect(() => {
+        const getPlantsHealth = async () => {
+      try {
+        const data = await fetchPlantHealth();
+        setPlantsHealth(data);
+      } catch (error) {
+        console.error("خطا در دریافت گیاهان:", error);
+      }
+    };
+
+    getPlantsHealth();
+  },[])
 
   return (
     <div className={styles.pageContainer}>
@@ -33,7 +47,10 @@ export default function PlantList() {
       <main className={styles.mainContent}>
         <h1 className={styles.pageTitle}>List of plants</h1>
         <ul className={styles.plantGrid}>
-          {plants.map((plant) => (
+          {plants.map((plant) => {
+            const plantStat = plantsHealth.find(item => item.plant == plant.id)
+            
+            return (
             <li key={plant.id} className={styles.plantCard}>
               <h2>{plant.name}</h2>
               <p>
@@ -45,8 +62,17 @@ export default function PlantList() {
               <p>
                 <b>Temperature Range (°C):</b> {plant.tempRange}
               </p>
+              <p>
+                <b>Temperature (°C):</b> {plantStat.temperature}
+              </p>
+              <p>
+                <b>Soil Moist:</b> {plantStat.moisture}
+              </p>
+              <p>
+                <b>humidity:</b> {plantStat.humidity}
+              </p>
             </li>
-          ))}
+          )})}
         </ul>
       </main>
     </div>
