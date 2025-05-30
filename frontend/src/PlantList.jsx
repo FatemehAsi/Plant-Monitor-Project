@@ -24,12 +24,17 @@ export default function PlantList() {
       try {
         const data = await fetchPlantHealth();
         setPlantsHealth(data);
+        console.log(data);
       } catch (error) {
-        console.error("خطا در دریافت گیاهان:", error);
+        console.error("خطا در دریافت اطلاعات سلامت گیاه:", error);
       }
     };
 
     getPlantsHealth();
+
+    // Poll every 5 seconds
+    const interval = setInterval(getPlantsHealth, 5000);
+    return () => clearInterval(interval); // cleanup on unmount
   },[])
 
   return (
